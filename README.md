@@ -16,3 +16,9 @@
 - 낚시 장난감의 움직임과 놀이 패턴 제어 로직 구현
 - 구동부와 로봇팔을 연동한 시뮬레이션 환경 구성
 - 시뮬레이션에서 움직임 패턴, 작동 범위 및 정지 동작 검증
+
+## 프로젝트 문서
+
+- [팀 차터](docs/charter.md)
+- [문제 정의 (Problem Definition)](docs/problem.md)
+- [요구사항 (Requirements)](docs/requirements.md)
