@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="tidybot">
+  <option integrator="implicitfast" />
+  <option cone="elliptic" impratio="10" />
+  <default>
+    <default class="base">
+      <geom mass="0" />
+      <default class="base/visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2" />
+      </default>
+      <default class="base/collision">
+        <geom type="mesh" group="3" />
+      </default>
+    </default>
+    <default class="gen3">
+      <default class="gen3/visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2" rgba="0.75294 0.75294 0.75294 1" />
+      </default>
+      <default class="gen3/collision">
+        <geom type="mesh" group="3" />
+      </default>
+      <default class="large_actuator">
+        <position kp="2000" kv="100" forcerange="-105 105" />
+      </default>
+      <default class="small_actuator">
+        <position kp="500" kv="50" forcerange="-52 52" />
+      </default>
+    </default>
+    <default class="2f85">
+      <mesh scale="0.001 0.001 0.001" />
+      <general biastype="affine" />
+      <joint axis="1 0 0" />
+      <default class="driver">
+        <joint range="0 0.8" armature="0.005" damping="0.1" solimplimit="0.95 0.99 0.001" solreflimit="0.005 1" />
+      </default>
+      <default class="follower">
+        <joint range="-0.872664 0.872664" armature="0.001" pos="0 -0.018 0.0065" solimplimit="0.95 0.99 0.001" solreflimit="0.005 1" />
+      </default>
+      <default class="spring_link">
+        <joint range="-0.29670597283 0.8" armature="0.001" stiffness="0.05" springref="2.62" damping="0.00125" />
+      </default>
+      <default class="coupler">
+        <joint range="-1.57 0" armature="0.001" solimplimit="0.95 0.99 0.001" solreflimit="0.005 1" />
+      </default>
+      <default class="2f85/visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2" />
+      </default>
+      <default class="2f85/collision">
+        <geom type="mesh" group="3" />
+        <default class="pad_box1">
+          <geom mass="0" type="box" pos="0 -0.0026 0.028125" size="0.011 0.004 0.009375" friction="0.7" solimp="0.95 0.99 0.001" solref="0.004 1" priority="1" rgba="0.55 0.55 0.55 1" />
+        </default>
+        <default class="pad_box2">
+          <geom mass="0" type="box" pos="0 -0.0026 0.009375" size="0.011 0.004 0.009375" friction="0.6" solimp="0.95 0.99 0.001" solref="0.004 1" priority="1" rgba="0.45 0.45 0.45 1" />
+        </default>
+      </default>
+    </default>
+    <site size="0.001" rgba="0.5 0.5 0.5 0.3" group="4" />
+  </default>
+  <asset>
+    <material name="black" rgba="0.11372549 0.11372549 0.10196078 1" />
+    <material name="gray" rgba="0.62745098 0.65098039 0.64705882 1" />
+    <material name="dark_gray" rgba="0.35294118 0.37647059 0.37254902 1" />
+    <mesh file="../models/stanford_tidybot/assets/base/bumper.stl" scale="1 1 0.5" />
+    <mesh file="../models/stanford_tidybot/assets/base/bottom_plate.stl" scale="1 1 0.5" />
+    <mesh file="../models/stanford_tidybot/assets/base/body.stl" scale="1 1 0.5" />
+    <mesh file="../models/stanford_tidybot/assets/base/top_plate.stl" scale="1 1 0.5" />
+    <mesh file="../models/stanford_tidybot/assets/base/arm_plate.stl" scale="1 1 0.5" />
+    <material name="metal" rgba="0.58 0.58 0.58 1" />
+    <material name="silicone" rgba="0.1882 0.1882 0.1882 1" />
+    <material name="2f85/gray" rgba="0.4627 0.4627 0.4627 1" />
+    <material name="2f85/black" rgba="0.149 0.149 0.149 1" />
+  </asset>
+  <worldbody>
+    <body name="base_link">
+      <joint name="joint_x" type="slide" axis="1 0 0" />
+      <joint name="joint_y" type="slide" axis="0 1 0" />
+      <joint name="joint_th" />
+      <geom class="base/visual" mesh="bumper" material="black" />
+      <geom class="base/visual" mesh="bottom_plate" material="dark_gray" />
+      <geom class="base/visual" mesh="body" material="gray" mass="60" />
+      <geom class="base/visual" mesh="top_plate" material="dark_gray" />
+      <geom class="base/visual" mesh="arm_plate" material="gray" />
+      <geom class="base/collision" mesh="bumper" />
+      <geom class="base/collision" mesh="bottom_plate" />
+      <geom class="base/collision" mesh="body" />
+      <geom class="base/collision" mesh="top_plate" />
+      <geom class="base/collision" mesh="arm_plate" />
+      <camera name="base" pos="0.28 0 0.24" xyaxes="0 -1 0 -0.11 0 0.994" fovy="60" resolution="640 480" />
+      <body name="simple_yaw" pos="0 0 0.16">
+        <joint name="simple_yaw_joint" type="hinge" axis="0 0 1" range="-2.6 2.6" damping="2" />
+        <geom name="simple_pedestal" type="cylinder" rgba="0.70 0.76 0.79 1" fromto="0 0 0 0 0 0.10" size="0.055" mass="0.8" />
+        <geom name="yaw_marker" type="sphere" size="0.06" mass="0.15" rgba="0.05 0.65 0.68 1" />
+        <body name="simple_shoulder" pos="0 0 0.10">
+          <joint name="simple_shoulder_joint" type="hinge" axis="0 1 0" range="-2.6 2.6" damping="2" />
+          <geom name="shoulder_marker" type="sphere" size="0.045" mass="0.15" rgba="0.05 0.65 0.68 1" />
+          <geom name="simple_upper" type="capsule" rgba="0.70 0.76 0.79 1" fromto="0 0 0 0.18 0 0.24" size="0.03" mass="0.6" />
+          <body name="simple_elbow" pos="0.18 0 0.24">
+            <joint name="simple_elbow_joint" type="hinge" axis="0 1 0" range="-2.6 2.6" damping="2" />
+            <geom name="elbow_marker" type="sphere" size="0.04" mass="0.15" rgba="0.05 0.65 0.68 1" />
+            <geom name="simple_forearm" type="capsule" rgba="0.70 0.76 0.79 1" fromto="0 0 0 0.28 0 -0.12" size="0.026" mass="0.45" />
+            <body name="simple_wrist" pos="0.28 0 -0.12">
+              <joint name="simple_wrist_joint" type="hinge" axis="1 0 0" range="-2.6 2.6" damping="2" />
+              <geom name="wrist_marker" type="sphere" size="0.035" mass="0.15" rgba="0.05 0.65 0.68 1" />
+              <geom name="simple_palm" type="box" rgba="0.70 0.76 0.79 1" pos="0.045 0 0" size="0.035 0.045 0.025" mass="0.2" />
+              <body name="simple_left_finger" pos="0.09 0.018 0">
+                <joint name="simple_left_slide" type="slide" axis="0 1 0" range="0 0.025" damping="1" />
+                <geom type="box" pos="0.015 0 0" size="0.04 0.008 0.022" mass="0.05" rgba="0.12 0.16 0.19 1" />
+                <site name="left_grip_touch" type="box" pos="0.015 0 0" size="0.041 0.009 0.023" rgba="0 0 0 0" />
+              </body>
+              <body name="simple_right_finger" pos="0.09 -0.018 0">
+                <joint name="simple_right_slide" type="slide" axis="0 -1 0" range="0 0.025" damping="1" />
+                <geom type="box" pos="0.015 0 0" size="0.04 0.008 0.022" mass="0.05" rgba="0.12 0.16 0.19 1" />
+                <site name="right_grip_touch" type="box" pos="0.015 0 0" size="0.041 0.009 0.023" rgba="0 0 0 0" />
+              </body>
+              <site name="pinch_site" pos="0.105 0 0" size="0.003" rgba="1 1 0 0.5" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <geom name="camera_post" type="box" pos="0.24 0 0.20" size="0.009 0.009 0.035" mass="0.02" rgba="0.15 0.20 0.23 1" />
+      <geom name="camera_housing" type="box" pos="0.25 0 0.24" size="0.025 0.035 0.02" mass="0.05" rgba="0.15 0.20 0.23 1" />
+      <geom name="camera_lens" type="sphere" pos="0.277 0 0.24" size="0.008" mass="0" rgba="0.15 0.50 0.75 1" contype="0" conaffinity="0" />
+    </body>
+  </worldbody>
+  <actuator>
+    <position name="joint_x" joint="joint_x" kp="1000000" kv="50000" />
+    <position name="joint_y" joint="joint_y" kp="1000000" kv="50000" />
+    <position name="joint_th" joint="joint_th" kp="50000" kv="1000" />
+    <position name="simple_yaw_joint" joint="simple_yaw_joint" kp="250" kv="20" />
+    <position name="simple_shoulder_joint" joint="simple_shoulder_joint" kp="250" kv="20" />
+    <position name="simple_elbow_joint" joint="simple_elbow_joint" kp="250" kv="20" />
+    <position name="simple_wrist_joint" joint="simple_wrist_joint" kp="250" kv="20" />
+    <position name="simple_grip" joint="simple_left_slide" kp="100" kv="5" ctrlrange="0 0.025" />
+  </actuator>
+  <equality>
+    <joint joint1="simple_left_slide" joint2="simple_right_slide" polycoef="0 1 0 0 0" />
+  </equality>
+</mujoco>

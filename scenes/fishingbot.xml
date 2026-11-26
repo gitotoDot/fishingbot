@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="FishingBot simple arm and toy bin">
+  <include file="tidybot_robot.xml" />
+  <compiler angle="radian" autolimits="true" />
+  <option timestep="0.001" gravity="0 0 -9.81" iterations="100" />
+  <statistic center="0.35 0 0.25" extent="1.8" />
+  <visual>
+    <global offwidth="1280" offheight="960" azimuth="135" elevation="-25" />
+    <headlight ambient="0.35 0.35 0.35" diffuse="0.65 0.65 0.65" />
+  </visual>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.16 0.20 0.26" rgb2="0.34 0.40 0.47" width="512" height="3072" />
+    <texture name="floor_texture" type="2d" builtin="checker" width="512" height="512" rgb1="0.88 0.90 0.92" rgb2="0.76 0.80 0.84" />
+    <material name="floor_material" texture="floor_texture" texrepeat="6 6" texuniform="true" />
+  </asset>
+  <worldbody>
+    <light pos="0 0 3" dir="0 0 -1" directional="true" />
+    <camera name="overview" pos="1.3 -1.6 1.1" xyaxes="0.872 0.490 0 -0.196 0.349 0.918" />
+    <geom name="floor" type="box" pos="0 0 -0.05" size="1.5 1.5 0.05" material="floor_material" friction="0.8 0.01 0.001" />
+    <geom name="boundary_north" type="box" pos="0 1.49 0.002" size="1.49 0.008 0.002" rgba="0.1 0.45 0.8 1" contype="0" conaffinity="0" />
+    <geom name="boundary_south" type="box" pos="0 -1.49 0.002" size="1.49 0.008 0.002" rgba="0.1 0.45 0.8 1" contype="0" conaffinity="0" />
+    <geom name="boundary_east" type="box" pos="1.49 0 0.002" size="0.008 1.49 0.002" rgba="0.1 0.45 0.8 1" contype="0" conaffinity="0" />
+    <geom name="boundary_west" type="box" pos="-1.49 0 0.002" size="0.008 1.49 0.002" rgba="0.1 0.45 0.8 1" contype="0" conaffinity="0" />
+    <body name="toy_bin" pos="0.75 0 0">
+      <geom name="bin_bottom" type="cylinder" pos="0 0 0.02" size="0.075 0.02" rgba="0.20 0.29 0.34 1" />
+      <geom name="bin_wall_00" type="box" pos="0.0703 0 0.15" size="0.004 0.0095 0.11" euler="0 0 0" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_01" type="box" pos="0.067904586 0.018194979 0.15" size="0.004 0.0095 0.11" euler="0 0 0.26179939" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_02" type="box" pos="0.060881586 0.03515 0.15" size="0.004 0.0095 0.11" euler="0 0 0.52359878" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_03" type="box" pos="0.049709607 0.049709607 0.15" size="0.004 0.0095 0.11" euler="0 0 0.78539816" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_04" type="box" pos="0.03515 0.060881586 0.15" size="0.004 0.0095 0.11" euler="0 0 1.0471976" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_05" type="box" pos="0.018194979 0.067904586 0.15" size="0.004 0.0095 0.11" euler="0 0 1.3089969" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_06" type="box" pos="4.3046335e-18 0.0703 0.15" size="0.004 0.0095 0.11" euler="0 0 1.5707963" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_07" type="box" pos="-0.018194979 0.067904586 0.15" size="0.004 0.0095 0.11" euler="0 0 1.8325957" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_08" type="box" pos="-0.03515 0.060881586 0.15" size="0.004 0.0095 0.11" euler="0 0 2.0943951" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_09" type="box" pos="-0.049709607 0.049709607 0.15" size="0.004 0.0095 0.11" euler="0 0 2.3561945" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_10" type="box" pos="-0.060881586 0.03515 0.15" size="0.004 0.0095 0.11" euler="0 0 2.6179939" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_11" type="box" pos="-0.067904586 0.018194979 0.15" size="0.004 0.0095 0.11" euler="0 0 2.8797933" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_12" type="box" pos="-0.0703 8.609267e-18 0.15" size="0.004 0.0095 0.11" euler="0 0 3.1415927" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_13" type="box" pos="-0.067904586 -0.018194979 0.15" size="0.004 0.0095 0.11" euler="0 0 3.403392" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_14" type="box" pos="-0.060881586 -0.03515 0.15" size="0.004 0.0095 0.11" euler="0 0 3.6651914" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_15" type="box" pos="-0.049709607 -0.049709607 0.15" size="0.004 0.0095 0.11" euler="0 0 3.9269908" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_16" type="box" pos="-0.03515 -0.060881586 0.15" size="0.004 0.0095 0.11" euler="0 0 4.1887902" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_17" type="box" pos="-0.018194979 -0.067904586 0.15" size="0.004 0.0095 0.11" euler="0 0 4.4505896" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_18" type="box" pos="-1.29139e-17 -0.0703 0.15" size="0.004 0.0095 0.11" euler="0 0 4.712389" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_19" type="box" pos="0.018194979 -0.067904586 0.15" size="0.004 0.0095 0.11" euler="0 0 4.9741884" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_20" type="box" pos="0.03515 -0.060881586 0.15" size="0.004 0.0095 0.11" euler="0 0 5.2359878" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_21" type="box" pos="0.049709607 -0.049709607 0.15" size="0.004 0.0095 0.11" euler="0 0 5.4977871" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_22" type="box" pos="0.060881586 -0.03515 0.15" size="0.004 0.0095 0.11" euler="0 0 5.7595865" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_wall_23" type="box" pos="0.067904586 -0.018194979 0.15" size="0.004 0.0095 0.11" euler="0 0 6.0213859" rgba="0.26 0.39 0.46 1" />
+      <geom name="bin_guide_xp" type="box" pos="0.011 0 0.11" size="0.005 0.016 0.07" rgba="0.20 0.29 0.34 1" />
+      <geom name="bin_guide_xn" type="box" pos="-0.011 0 0.11" size="0.005 0.016 0.07" rgba="0.20 0.29 0.34 1" />
+      <geom name="bin_guide_yp" type="box" pos="0 0.011 0.15" size="0.006 0.005 0.03" rgba="0.20 0.29 0.34 1" />
+      <geom name="bin_guide_yn" type="box" pos="0 -0.011 0.11" size="0.006 0.005 0.07" rgba="0.20 0.29 0.34 1" />
+    </body>
+    <body name="fishing_rod" pos="0.75 0 0.29" quat="0.7071067811865476 -0.7071067811865476 0.0 0.0">
+      <freejoint name="rod_free" />
+      <geom name="rod_handle" type="cylinder" fromto="0 -0.05 0 0 0.05 0" size="0.015" mass="0.045" rgba="0.95 0.32 0.12 1" friction="1 0.01 0.001" />
+      <geom name="rod_shaft" type="cylinder" fromto="0 0.05 0 0 0.25 0" size="0.004" mass="0.025" rgba="0.18 0.24 0.30 1" />
+      <geom name="handle_marker" type="cylinder" fromto="0 -0.015 0 0 0.015 0" size="0.0151" mass="0" rgba="0.10 0.85 0.20 1" contype="0" conaffinity="0" />
+      <site name="handle_grasp" pos="0 0 0" size="0.003" rgba="1 1 0 0.7" />
+      <body name="string_00" pos="0 0.25 0" quat="-0.3826834323650897 0.9238795325112868 0.0 0.0">
+        <joint name="string_joint_00" type="ball" damping="0.00002" />
+        <geom name="string_geom_00" type="capsule" fromto="0 0 0 0 0 -0.02" size="0.0015" mass="0.001" rgba="0.85 0.70 0.20 1" friction="0.5 0.005 0.0001" priority="1" solref="0.004 1" solimp="0.99 0.999 0.001" />
+        <body name="string_01" pos="0 0 -0.02" quat="1.0 0.0 0.0 0.0">
+          <joint name="string_joint_01" type="ball" damping="0.00002" />
+          <geom name="string_geom_01" type="capsule" fromto="0 0 0 0 0 -0.02" size="0.0015" mass="0.001" rgba="0.85 0.70 0.20 1" friction="0.5 0.005 0.0001" priority="1" solref="0.004 1" solimp="0.99 0.999 0.001" />
+          <body name="string_02" pos="0 0 -0.02" quat="-0.06506173043270098 -0.3714409135272465 -0.3544315156769017 0.8556733720796281">
+            <joint name="string_joint_02" type="ball" damping="0.00002" />
+            <geom name="string_geom_02" type="capsule" fromto="0 0 0 0 0 -0.02" size="0.0015" mass="0.001" rgba="0.85 0.70 0.20 1" friction="0.5 0.005 0.0001" priority="1" solref="0.004 1" solimp="0.99 0.999 0.001" />
+            <body name="string_03" pos="0 0 -0.02" quat="0.9181870557676827 -0.11702195169731935 0.05366872725770183 0.37464391247711953">
+              <joint name="string_joint_03" type="ball" damping="0.00002" />
+              <geom name="string_geom_03" type="capsule" fromto="0 0 0 0 0 -0.02" size="0.0015" mass="0.001" rgba="0.85 0.70 0.20 1" friction="0.5 0.005 0.0001" priority="1" solref="0.004 1" solimp="0.99 0.999 0.001" />
+              <body name="string_04" pos="0 0 -0.02" quat="0.9181870557676823 -0.08399602065569939 0.097566069811788 0.37464391247711976">
+                <joint name="string_joint_04" type="ball" damping="0.00002" />
+                <geom name="string_geom_04" type="capsule" fromto="0 0 0 0 0 -0.02" size="0.0015" mass="0.001" rgba="0.85 0.70 0.20 1" friction="0.5 0.005 0.0001" priority="1" solref="0.004 1" solimp="0.99 0.999 0.001" />
+                <body name="string_05" pos="0 0 -0.02" quat="0.9181870557676823 -0.03567706007271093 0.12369970432090586 0.3746439124771196">
+                  <joint name="string_joint_05" type="ball" damping="0.00002" />
+                  <geom name="string_geom_05" type="capsule" fromto="0 0 0 0 0 -0.02" size="0.0015" mass="0.001" rgba="0.85 0.70 0.20 1" friction="0.5 0.005 0.0001" priority="1" solref="0.004 1" solimp="0.99 0.999 0.001" />
+                  <body name="string_06" pos="0 0 -0.02" quat="0.9181870557676823 0.019137569345324734 0.12731151913343994 0.37464391247711976">
+                    <joint name="string_joint_06" type="ball" damping="0.00002" />
+                    <geom name="string_geom_06" type="capsule" fromto="0 0 0 0 0 -0.02" size="0.0015" mass="0.001" rgba="0.85 0.70 0.20 1" friction="0.5 0.005 0.0001" priority="1" solref="0.004 1" solimp="0.99 0.999 0.001" />
+                    <body name="string_07" pos="0 0 -0.02" quat="0.9181870557676826 0.07046785020656729 0.1077439165418453 0.37464391247711926">
+                      <joint name="string_joint_07" type="ball" damping="0.00002" />
+                      <geom name="string_geom_07" type="capsule" fromto="0 0 0 0 0 -0.02" size="0.0015" mass="0.001" rgba="0.85 0.70 0.20 1" friction="0.5 0.005 0.0001" priority="1" solref="0.004 1" solimp="0.99 0.999 0.001" />
+                      <body name="string_08" pos="0 0 -0.02" quat="0.9181870557676821 0.10896815523665504 0.0685595406112939 0.3746439124771199">
+                        <joint name="string_joint_08" type="ball" damping="0.00002" />
+                        <geom name="string_geom_08" type="capsule" fromto="0 0 0 0 0 -0.02" size="0.0015" mass="0.001" rgba="0.85 0.70 0.20 1" friction="0.5 0.005 0.0001" priority="1" solref="0.004 1" solimp="0.99 0.999 0.001" />
+                        <body name="string_09" pos="0 0 -0.02" quat="0.9181870557676822 0.12762879162418334 0.016892631916375134 0.3746439124771192">
+                          <joint name="string_joint_09" type="ball" damping="0.00002" />
+                          <geom name="string_geom_09" type="capsule" fromto="0 0 0 0 0 -0.02" size="0.0015" mass="0.001" rgba="0.85 0.70 0.20 1" friction="0.5 0.005 0.0001" priority="1" solref="0.004 1" solimp="0.99 0.999 0.001" />
+                          <body name="toy_ball" pos="0 0 -0.02">
+                            <geom name="toy_ball_geom" type="sphere" pos="0 0 -0.025" size="0.025" mass="0.020" rgba="0.85 0.18 0.42 1" friction="0.7 0.01 0.001" priority="1" solref="0.004 1" />
+                            <site name="toy_center" pos="0 0 -0.025" size="0.002" />
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <sensor>
+    <touch name="left_grip_force" site="left_grip_touch" />
+    <touch name="right_grip_force" site="right_grip_touch" />
+    <framepos name="handle_world" objtype="site" objname="handle_grasp" />
+    <framepos name="toy_world" objtype="site" objname="toy_center" />
+  </sensor>
+  <custom>
+    <numeric name="workspace_xy" data="-1.5 1.5 -1.5 1.5" />
+    <numeric name="rod_mass_target_kg" data="0.10" />
+    <text name="layout_status" data="Half-height base, custom 4-axis arm, open toy bin; grasp reach not validated" />
+    <text name="position_sensors" data="Ground truth for diagnostics, not camera perception" />
+  </custom>
+  <keyframe>
+    <key name="home" qpos="0 0 0 0 0 0 0 0.02 0.02 0.75 0 0.29 0.7071067811865476 -0.7071067811865476 0.0 0.0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0" ctrl="0 0 0 0 0 0 0 0.02" />
+  </keyframe>
+</mujoco>
